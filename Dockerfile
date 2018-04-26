@@ -27,6 +27,11 @@ COPY ansible-playbook-wrapper /usr/local/bin/
 # install docker client
 RUN apk --update add curl docker
 
+#RUN apk --update add curl && \
+#    curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && \
+#    chmod +x /tmp/docker-machine && \
+#    mv -f /tmp/docker-machine /usr/local/bin/docker-machine
+
 WORKDIR /root
 
 # install scripts
