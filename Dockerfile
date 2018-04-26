@@ -33,6 +33,7 @@ RUN apk --update add curl docker && \
 WORKDIR /root
 
 # install scripts
+RUN pip install requests
 RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
  && cd gitlab-ci-utils \
  && ./install \
