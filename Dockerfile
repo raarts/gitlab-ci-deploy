@@ -22,7 +22,6 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     mkdir -p /etc/ansible                        && \
     echo 'localhost' > /etc/ansible/hosts
 
-
 COPY ansible-playbook-wrapper /usr/local/bin/
 
 # install docker client
@@ -30,6 +29,15 @@ RUN apk --update add curl docker && \
     curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && \
     chmod +x /tmp/docker-machine && \
     mv -f /tmp/docker-machine /usr/local/bin/docker-machine
+
+WORKDIR /root
+
+# install scripts
+RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
+ && cd gitlab-ci-utils \
+ && ./install \
+ && cd .. \
+ && rm -rf gitlab-ci-utils
 
 # default command: display Ansible version
 CMD [ "ansible-playbook", "--version" ]
