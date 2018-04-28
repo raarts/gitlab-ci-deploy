@@ -43,6 +43,9 @@ RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
  && cd .. \
  && rm -rf gitlab-ci-utils
 
+# install ansible roles
+RUN ansible-galaxy install git+https://github.com/raarts/stack-deploy
+
 # default command: display Ansible version
 CMD [ "ansible-playbook", "--version" ]
 
