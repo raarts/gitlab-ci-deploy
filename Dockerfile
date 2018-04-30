@@ -1,6 +1,7 @@
 FROM alpine:3.7
 
-RUN apk --update add git bash openssh
+# Utilities we need in .gitlab-ci.yml for example
+RUN apk --update add git bash openssh grep coreutils sed
 
 RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
