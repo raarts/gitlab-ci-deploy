@@ -48,6 +48,6 @@ RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
  && rm -rf gitlab-ci-utils
 
 # install ansible roles
-RUN ansible-galaxy install git+https://github.com/raarts/stack-deploy
+RUN ansible-galaxy install -p /etc/ansible/roles git+https://github.com/raarts/stack-deploy
 
 CMD ["/bin/bash"]
