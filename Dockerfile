@@ -1,7 +1,8 @@
 FROM alpine:3.7
 
 # Utilities we need in .gitlab-ci.yml for example
-RUN apk --update add git bash openssh grep coreutils sed
+RUN apk --update add git bash openssh grep coreutils sed \
+ && sed -i -e s:/bin/ash:/bin/bash:g /etc/passwd
 
 RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
@@ -25,8 +26,10 @@ RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
-# install docker client
-RUN apk --update add curl docker
+# install docker client and compose
+RUN apk --update add curl openrc docker \
+ && rc-update add docker boot \
+ && pip install docker-compose
 
 #RUN apk --update add curl && \
 #    curl -L https://github.com/docker/machine/releases/download/v0.12.2/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && \
@@ -47,6 +50,4 @@ RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
 # install ansible roles
 RUN ansible-galaxy install git+https://github.com/raarts/stack-deploy
 
-# default command: display Ansible version
-CMD [ "ansible-playbook", "--version" ]
-
+CMD ["/bin/bash"]
