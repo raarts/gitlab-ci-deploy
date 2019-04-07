@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.9
 
 # Utilities we need in .gitlab-ci.yml for example
 RUN apk --update add git bash openssh grep coreutils sed postgresql-client \
