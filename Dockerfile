@@ -54,5 +54,6 @@ RUN ansible-galaxy install -p /etc/ansible/roles git+https://github.com/raarts/s
 
 # Install expo
 RUN npm install -g expo-cli
+RUN npm install -g sharp-cli
 
 CMD ["/bin/bash"]
