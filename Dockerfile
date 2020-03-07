@@ -1,15 +1,16 @@
-FROM alpine:3.9
+FROM node:13-alpine
+
 
 # Utilities we need in .gitlab-ci.yml for example
-RUN apk --update add git bash openssh grep coreutils sed postgresql-client \
+RUN apk --update add build-base git bash openssh grep coreutils sed postgresql-client \
  && sed -i -e s:/bin/ash:/bin/bash:g /etc/passwd
 
 RUN echo "===> Installing sudo to emulate normal OS behavior..."  && \
     apk --update add sudo                                         && \
     \
     echo "===> Adding Python runtime..."  && \
-    apk --update add python py-pip openssl ca-certificates    && \
-    apk --update add py2-dnspython                            && \
+    apk --update add python python-dev py-pip libffi-dev openssl-dev openssl ca-certificates    && \
+    apk --update add py-dnspython                             && \
     apk --update add --virtual build-dependencies \
                 python-dev libffi-dev openssl-dev build-base  && \
     pip install --upgrade pip cffi                            && \
@@ -50,5 +51,8 @@ RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
 
 # install ansible roles
 RUN ansible-galaxy install -p /etc/ansible/roles git+https://github.com/raarts/stack-deploy
+
+# Install expo
+RUN npm install -g expo-cli
 
 CMD ["/bin/bash"]
