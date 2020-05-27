@@ -41,7 +41,7 @@ RUN apk --update add curl openrc docker \
 WORKDIR /root
 
 # install scripts
-ENV BUILD_DATE 20180427001
+ENV BUILD_DATE 20200527001
 RUN pip install requests
 RUN git clone https://github.com/raarts/gitlab-ci-utils.git \
  && cd gitlab-ci-utils \
