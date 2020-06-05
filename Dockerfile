@@ -1,6 +1,5 @@
 FROM node:13-alpine
 
-
 # Utilities we need in .gitlab-ci.yml for example
 RUN apk --update add build-base git bash openssh grep coreutils sed postgresql-client \
  && sed -i -e s:/bin/ash:/bin/bash:g /etc/passwd
@@ -55,6 +54,9 @@ RUN ansible-galaxy install -p /etc/ansible/roles git+https://github.com/raarts/s
 # Install expo
 RUN npm install -g expo-cli
 RUN npm install -g --unsafe-perm sharp-cli 
+
+# Additional utilities
+RUN apk add zip unzip
 
 COPY entrypoint.sh /usr/local/bin/
 
