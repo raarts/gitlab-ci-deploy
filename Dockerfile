@@ -1,4 +1,4 @@
-FROM node:13-alpine
+FROM node:14-alpine
 
 # Utilities we need in .gitlab-ci.yml for example
 RUN apk --update add build-base git bash openssh grep coreutils sed postgresql-client \
